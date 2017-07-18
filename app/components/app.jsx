@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import appActions from '../actions/index';
+import * as appActions from '../actions/index';
 import appStore from '../stores/store';
 
 export default class App extends Component {
@@ -7,6 +7,7 @@ export default class App extends Component {
     constructor (props) {
         super(props);
         appStore.addListener(this._handleStoreChange.bind(this));
+        this.state = {number: 10};
     }
 
     _handleStoreChange () {
@@ -16,18 +17,17 @@ export default class App extends Component {
     get storeState () {
         return {
             number: appStore.number
-        }
+        };
     }
 
     render() {
-        console.log(this.state);
         const {
             number
         } = this.state;
         return (
             <div className="container form-group">
                 <button className="btn btn-success" onClick={ this._handleClick.bind(this, number) }>click</button>
-                <span className="alert label">{ number }</span>
+                <span class="badge">{ number }</span>
             </div>
         );
     }
